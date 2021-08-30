@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="900.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/15.0.1" fx:controller="controllers.MonitoringController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MonitoringController">
    <children>
       <VBox layoutX="10.0" layoutY="10.0" prefHeight="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -46,7 +46,7 @@
             </HBox>
             <HBox prefHeight="69.0" prefWidth="900.0">
                <children>
-                  <TextField prefHeight="36.0" prefWidth="275.0">
+                  <TextField fx:id="txtSearch" prefHeight="36.0" prefWidth="275.0">
                      <HBox.margin>
                         <Insets left="25.0" top="15.0" />
                      </HBox.margin>
@@ -54,12 +54,12 @@
                         <Font name="SansSerif Regular" size="16.0" />
                      </font>
                   </TextField>
-                  <Button accessibleRole="IMAGE_VIEW" mnemonicParsing="false" prefHeight="34.0" prefWidth="34.0" style="-fx-background-color: transparent;">
+                  <Button fx:id="btnSearch" accessibleRole="IMAGE_VIEW" mnemonicParsing="false" prefHeight="34.0" prefWidth="34.0" style="-fx-background-color: transparent;">
                      <HBox.margin>
                         <Insets top="12.0" />
                      </HBox.margin>
                      <graphic>
-                        <ImageView fitHeight="33.0" fitWidth="123.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="imgSearch" fitHeight="33.0" fitWidth="123.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/search.png" />
                            </image>
@@ -76,11 +76,11 @@
             </HBox>
             <HBox prefHeight="400.0" prefWidth="200.0">
                <children>
-                  <TableView prefHeight="400.0" prefWidth="919.0">
+                  <TableView fx:id="table" prefHeight="400.0" prefWidth="850.0">
                     <columns>
-                      <TableColumn minWidth="350.0" prefWidth="350.0" resizable="false" text="Id do Equipamento" />
-                      <TableColumn minWidth="399.0" prefWidth="399.0" resizable="false" text="Nome do Paciente" />
-                        <TableColumn minWidth="100.0" prefWidth="100.0" resizable="false" text="Estado Grave?" />
+                      <TableColumn fx:id="clmId" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" resizable="false" style="-fx-font-size: 14; -fx-alignment: CENTER;" text="Id do Equipamento" />
+                      <TableColumn fx:id="clmName" maxWidth="500.0" minWidth="500.0" prefWidth="500.0" resizable="false" style="-fx-font-size: 14; -fx-alignment: CENTER;" text="Nome do Paciente" />
+                        <TableColumn fx:id="clmSeriousCondition" maxWidth="148.0" minWidth="148.0" prefWidth="148.0" resizable="false" style="-fx-font-size: 14; -fx-alignment: CENTER;" text="Estado Grave?" />
                     </columns>
                      <HBox.margin>
                         <Insets left="25.0" right="25.0" />
