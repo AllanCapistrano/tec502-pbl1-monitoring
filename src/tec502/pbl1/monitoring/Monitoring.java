@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 /**
@@ -11,6 +12,8 @@ import javafx.stage.Stage;
  * @author Allan Capistrano
  */
 public class Monitoring extends Application {
+    
+    private static Stage stage;
     
     @Override
     public void start(Stage stage) throws Exception {
@@ -22,6 +25,10 @@ public class Monitoring extends Application {
         stage.setTitle("Monitoramento de Pacientes");
         stage.setResizable(false);
         stage.show();
+        
+        Image image = new Image("/images/covid19-monitoring.png");
+
+        stage.getIcons().add(image);
     }
 
     /**
@@ -29,6 +36,14 @@ public class Monitoring extends Application {
      */
     public static void main(String[] args) {
         launch(args);
+    }
+    
+    public static Stage getStage() {
+        return stage;
+    }
+
+    public static void setStage(Stage stage) {
+        Monitoring.stage = stage;
     }
     
 }
