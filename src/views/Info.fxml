@@ -9,8 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/15.0.1" fx:controller="controllers.InfoController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.InfoController">
    <children>
       <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -58,7 +57,7 @@
                         <Insets top="10.0" />
                      </padding>
                   </Label>
-                  <Label fx:id="lblBodyTemperature" text="35.8 °C">
+                  <Label fx:id="lblBodyTemperature" text=" °C">
                      <font>
                         <Font name="SansSerif Regular" size="16.0" />
                      </font>
@@ -87,7 +86,7 @@
                         <Insets left="20.0" />
                      </HBox.margin>
                   </Label>
-                  <Label fx:id="lblRespiratoryFrequency" text="100 movimentos/minuto">
+                  <Label fx:id="lblRespiratoryFrequency" text=" movimentos/minuto">
                      <font>
                         <Font name="SansSerif Regular" size="16.0" />
                      </font>
@@ -110,7 +109,7 @@
                         <Insets left="20.0" />
                      </HBox.margin>
                   </Label>
-                  <Label fx:id="lblBloodOxygenation" text="100 %">
+                  <Label fx:id="lblBloodOxygenation" text=" %">
                      <font>
                         <Font name="SansSerif Regular" size="16.0" />
                      </font>
@@ -133,7 +132,7 @@
                         <Insets left="20.0" />
                      </HBox.margin>
                   </Label>
-                  <Label fx:id="lblBloodPressure" text="100 mmHg">
+                  <Label fx:id="lblBloodPressure" text=" mmHg">
                      <font>
                         <Font name="SansSerif Regular" size="16.0" />
                      </font>
@@ -145,7 +144,7 @@
             </HBox>
             <HBox prefHeight="40.0" prefWidth="200.0">
                <children>
-                  <Label fx:id="lblHeartRate" text="Frequência Cardíaca:">
+                  <Label text="Frequência Cardíaca:">
                      <font>
                         <Font name="SansSerif Bold" size="16.0" />
                      </font>
@@ -156,7 +155,7 @@
                         <Insets left="20.0" />
                      </HBox.margin>
                   </Label>
-                  <Label text="100 batimentos/minuto">
+                  <Label fx:id="lblHeartRate" text=" batimentos/minuto">
                      <font>
                         <Font name="SansSerif Regular" size="16.0" />
                      </font>
