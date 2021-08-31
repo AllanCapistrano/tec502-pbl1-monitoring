@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import models.Patient;
 
 /**
  *
@@ -29,10 +30,38 @@ public class InfoController implements Initializable {
 
     @FXML
     private Label lblHeartRate;
+    
+    @FXML
+    private Label lblSeriousCondition;
+    
+    private static Patient patient;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        initPatient();
     }
-
+    
+    /**
+     * Coloca os dados do paciente na interface gráfica.
+     */
+    public void initPatient() {
+        String bodyTemperature = String.valueOf(patient.getBodyTemperature()) + " °C";
+        String respiratoryFrequency = String.valueOf(patient.getRespiratoryFrequency()) + " movimentos/minuto";
+        String bloodOxygenation = String.valueOf(patient.getBloodOxygenation()) + " %";
+        String bloodPressure = String.valueOf(patient.getBloodPressure()) + " mmHg";
+        String heartRate = String.valueOf(patient.getHeartRate()) + " batimentos/minuto";
+        
+        lblName.setText(patient.getName());
+        lblBodyTemperature.setText(bodyTemperature);
+        lblRespiratoryFrequency.setText(respiratoryFrequency);
+        lblBloodOxygenation.setText(bloodOxygenation);
+        lblBloodPressure.setText(bloodPressure);
+        lblHeartRate.setText(heartRate);
+        
+        lblSeriousCondition.setText(patient.isIsSeriousCondition() ? "Sim" : "Não");
+    }
+    
+    public static void setPatient(Patient patient) {
+        InfoController.patient = patient;
+    }
 }
