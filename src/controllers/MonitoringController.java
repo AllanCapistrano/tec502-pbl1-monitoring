@@ -16,6 +16,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import models.Patient;
 import tec502.pbl1.monitoring.Info;
@@ -53,30 +55,41 @@ public class MonitoringController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         initTable();
-        
+
         table.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
             @Override
             public void changed(ObservableValue observable, Object oldValue, Object clicked) {
                 selected = (Patient) clicked;
-                
-                if(selected != null){
+
+                if (selected != null) {
                     Info newWindow = new Info(selected);
-                    
+
                     try {
                         newWindow.start(new Stage());
                     } catch (Exception ex) {
                         System.err.println("Erro ao tentar exibir as informações do paciente.");
                     }
-                } else{
+                } else {
                     Alert alert = new Alert(Alert.AlertType.WARNING);
 
                     alert.setTitle("Atenção");
                     alert.setHeaderText("É necessário selecionar um paciente!");
                     alert.show();
                 }
-                
             }
+        });
+
+        txtSearch.setOnKeyReleased((KeyEvent e) -> {
+            table.setItems(searchPatients());
+        });
         
+        btnSearch.setOnMouseClicked((MouseEvent e)->{          
+            table.setItems(searchPatients());
+            
+        });
+        
+        imgSearch.setOnMouseClicked((MouseEvent e)->{          
+            table.setItems(searchPatients());
         });
     }
 
@@ -87,31 +100,49 @@ public class MonitoringController implements Initializable {
         clmId.setCellValueFactory(new PropertyValueFactory("deviceId"));
         clmName.setCellValueFactory(new PropertyValueFactory("name"));
         clmSeriousCondition.setCellValueFactory(new PropertyValueFactory("isSeriousCondition"));
-        
+
         table.setItems(updateTable());
     }
 
     /**
      * Atualiza os campos das tabelas.
-     * 
+     *
      * @return ObservableList<Patient>
      */
     public ObservableList<Patient> updateTable() {
-        Patient p1 = new Patient("test1", "123.123.123.123");
-        Patient p2 = new Patient("test2", "456.456.456.456");
-        Patient p3 = new Patient("test3", "789.789.789.789");
-        Patient p4 = new Patient("test4", "000.000.000.000");
+        Patient p1 = new Patient("test A", "123.123.123.123");
+        Patient p2 = new Patient("test B", "456.123.456.456");
+        Patient p3 = new Patient("test C", "189.789.789.789");
+        Patient p4 = new Patient("test D", "000.000.000.000");
 
         ArrayList<Patient> tempList = new ArrayList<>();
-        
+
         tempList.add(p1);
         tempList.add(p2);
         tempList.add(p3);
         tempList.add(p4);
 
         patients = FXCollections.observableArrayList(tempList);
-        
+
         return patients;
     }
 
+    /**
+     * Busca os pacientes pelo nome.
+     *
+     * @return ObservableList<Patient>
+     */
+    private ObservableList<Patient> searchPatients() {
+        ObservableList<Patient> clientSearch = FXCollections.observableArrayList();
+
+        for (int i = 0; i < patients.size(); i++) {
+            if (patients.get(i).getName().toLowerCase().contains(txtSearch.getText().toLowerCase())) {
+                clientSearch.add(patients.get(i));
+            } else if (patients.get(i).getDeviceId().startsWith(txtSearch.getText())) {
+                clientSearch.add(patients.get(i));
+            }
+        }
+
+        return clientSearch;
+    }
 }
