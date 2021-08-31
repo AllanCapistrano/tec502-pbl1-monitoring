@@ -1,11 +1,13 @@
 package tec502.pbl1.monitoring;
 
+import controllers.InfoController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import models.Patient;
 
 /**
  *
@@ -14,6 +16,15 @@ import javafx.stage.Stage;
 public class Info extends Application {
 
     private static Stage stage;
+
+    /**
+     * Método construtor
+     *
+     * @param patient Patient - Paciente selecionado.
+     */
+    public Info(Patient patient) {
+        InfoController.setPatient(patient);
+    }
 
     @Override
     public void start(Stage stage) throws Exception {
