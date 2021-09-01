@@ -1,7 +1,9 @@
 package controllers;
 
+import client.MonitoringClient;
+import java.io.IOException;
+import java.net.Socket;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -82,13 +84,13 @@ public class MonitoringController implements Initializable {
         txtSearch.setOnKeyReleased((KeyEvent e) -> {
             table.setItems(searchPatients());
         });
-        
-        btnSearch.setOnMouseClicked((MouseEvent e)->{          
+
+        btnSearch.setOnMouseClicked((MouseEvent e) -> {
             table.setItems(searchPatients());
-            
+
         });
-        
-        imgSearch.setOnMouseClicked((MouseEvent e)->{          
+
+        imgSearch.setOnMouseClicked((MouseEvent e) -> {
             table.setItems(searchPatients());
         });
     }
@@ -97,32 +99,28 @@ public class MonitoringController implements Initializable {
      * Preenche as tabelas com as informações recebidas.
      */
     public void initTable() {
-        clmId.setCellValueFactory(new PropertyValueFactory("deviceId"));
-        clmName.setCellValueFactory(new PropertyValueFactory("name"));
-        clmSeriousCondition.setCellValueFactory(new PropertyValueFactory("isSeriousCondition"));
+        try {
+            Socket conn = new Socket("localhost", 12244);
 
-        table.setItems(updateTable());
+            clmId.setCellValueFactory(new PropertyValueFactory("deviceId"));
+            clmName.setCellValueFactory(new PropertyValueFactory("name"));
+            clmSeriousCondition.setCellValueFactory(new PropertyValueFactory("isSeriousCondition"));
+
+            table.setItems(updateTable(conn));
+        } catch (IOException ioe) {
+            System.err.println("Erro de Entrada/Saída");
+            System.out.println(ioe);
+        }
     }
 
+    // NÃO SEI SE É NECESSÁRIO.
     /**
      * Atualiza os campos das tabelas.
      *
      * @return ObservableList<Patient>
      */
-    public ObservableList<PatientDevice> updateTable() {
-        PatientDevice p1 = new PatientDevice("test A", "123.123.123.123");
-        PatientDevice p2 = new PatientDevice("test B", "456.123.456.456");
-        PatientDevice p3 = new PatientDevice("test C", "189.789.789.789");
-        PatientDevice p4 = new PatientDevice("test D", "000.000.000.000");
-
-        ArrayList<PatientDevice> tempList = new ArrayList<>();
-
-        tempList.add(p1);
-        tempList.add(p2);
-        tempList.add(p3);
-        tempList.add(p4);
-
-        patients = FXCollections.observableArrayList(tempList);
+    public ObservableList<PatientDevice> updateTable(Socket conn) {
+        patients = FXCollections.observableArrayList(MonitoringClient.requestPatients(conn));
 
         return patients;
     }
