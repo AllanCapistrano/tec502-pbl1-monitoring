@@ -5,8 +5,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import models.PatientDevice;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -46,15 +44,24 @@ public class MonitoringClient {
             for (int i = 0; i < jsonArray.length(); i++) {
                 patientDevices.add(
                         new PatientDevice(
-                                jsonArray.getJSONObject(i).getString("name"),
-                                jsonArray.getJSONObject(i).getFloat("bodyTemperatureSensor"),
-                                jsonArray.getJSONObject(i).getInt("respiratoryFrequencySensor"),
-                                jsonArray.getJSONObject(i).getFloat("bloodOxygenationSensor"),
-                                jsonArray.getJSONObject(i).getInt("bloodPressureSensor"),
-                                jsonArray.getJSONObject(i).getInt("heartRateSensor"),
-                                jsonArray.getJSONObject(i).getString("deviceId")
+                                jsonArray.getJSONObject(i).
+                                        getString("name"),
+                                jsonArray.getJSONObject(i).
+                                        getFloat("bodyTemperatureSensor"),
+                                jsonArray.getJSONObject(i).
+                                        getInt("respiratoryFrequencySensor"),
+                                jsonArray.getJSONObject(i).
+                                        getFloat("bloodOxygenationSensor"),
+                                jsonArray.getJSONObject(i).
+                                        getInt("bloodPressureSensor"),
+                                jsonArray.getJSONObject(i).
+                                        getInt("heartRateSensor"),
+                                jsonArray.getJSONObject(i).
+                                        getString("deviceId")
                         ));
             }
+            
+            // ORDENAR A LISTA DE PACIENTES PELOS GRAVES
 
             output.close();
 
