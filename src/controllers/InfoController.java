@@ -5,7 +5,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import models.Patient;
+import models.PatientDevice;
 
 /**
  *
@@ -34,7 +34,7 @@ public class InfoController implements Initializable {
     @FXML
     private Label lblSeriousCondition;
     
-    private static Patient patient;
+    private static PatientDevice patient;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -61,7 +61,7 @@ public class InfoController implements Initializable {
         lblSeriousCondition.setText(patient.isIsSeriousCondition() ? "Sim" : "Não");
     }
     
-    public static void setPatient(Patient patient) {
+    public static void setPatient(PatientDevice patient) {
         InfoController.patient = patient;
     }
 }

@@ -7,7 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import models.Patient;
+import models.PatientDevice;
 
 /**
  *
@@ -20,9 +20,9 @@ public class Info extends Application {
     /**
      * Método construtor
      *
-     * @param patient Patient - Paciente selecionado.
+     * @param patient PatientDevice - Paciente selecionado.
      */
-    public Info(Patient patient) {
+    public Info(PatientDevice patient) {
         InfoController.setPatient(patient);
     }
 

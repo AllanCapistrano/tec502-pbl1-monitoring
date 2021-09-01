@@ -19,7 +19,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import models.Patient;
+import models.PatientDevice;
 import tec502.pbl1.monitoring.Info;
 
 /**
@@ -38,19 +38,19 @@ public class MonitoringController implements Initializable {
     private ImageView imgSearch;
 
     @FXML
-    private TableView<Patient> table;
+    private TableView<PatientDevice> table;
 
     @FXML
-    private TableColumn<Patient, String> clmId;
+    private TableColumn<PatientDevice, String> clmId;
 
     @FXML
-    private TableColumn<Patient, String> clmName;
+    private TableColumn<PatientDevice, String> clmName;
 
     @FXML
-    private TableColumn<Patient, String> clmSeriousCondition;
+    private TableColumn<PatientDevice, String> clmSeriousCondition;
 
-    private Patient selected;
-    private ObservableList<Patient> patients = FXCollections.observableArrayList();
+    private PatientDevice selected;
+    private ObservableList<PatientDevice> patients = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -59,7 +59,7 @@ public class MonitoringController implements Initializable {
         table.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
             @Override
             public void changed(ObservableValue observable, Object oldValue, Object clicked) {
-                selected = (Patient) clicked;
+                selected = (PatientDevice) clicked;
 
                 if (selected != null) {
                     Info newWindow = new Info(selected);
@@ -109,13 +109,13 @@ public class MonitoringController implements Initializable {
      *
      * @return ObservableList<Patient>
      */
-    public ObservableList<Patient> updateTable() {
-        Patient p1 = new Patient("test A", "123.123.123.123");
-        Patient p2 = new Patient("test B", "456.123.456.456");
-        Patient p3 = new Patient("test C", "189.789.789.789");
-        Patient p4 = new Patient("test D", "000.000.000.000");
+    public ObservableList<PatientDevice> updateTable() {
+        PatientDevice p1 = new PatientDevice("test A", "123.123.123.123");
+        PatientDevice p2 = new PatientDevice("test B", "456.123.456.456");
+        PatientDevice p3 = new PatientDevice("test C", "189.789.789.789");
+        PatientDevice p4 = new PatientDevice("test D", "000.000.000.000");
 
-        ArrayList<Patient> tempList = new ArrayList<>();
+        ArrayList<PatientDevice> tempList = new ArrayList<>();
 
         tempList.add(p1);
         tempList.add(p2);
@@ -132,8 +132,8 @@ public class MonitoringController implements Initializable {
      *
      * @return ObservableList<Patient>
      */
-    private ObservableList<Patient> searchPatients() {
-        ObservableList<Patient> clientSearch = FXCollections.observableArrayList();
+    private ObservableList<PatientDevice> searchPatients() {
+        ObservableList<PatientDevice> clientSearch = FXCollections.observableArrayList();
 
         for (int i = 0; i < patients.size(); i++) {
             if (patients.get(i).getName().toLowerCase().contains(txtSearch.getText().toLowerCase())) {
