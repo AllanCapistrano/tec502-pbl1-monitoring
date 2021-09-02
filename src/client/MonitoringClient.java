@@ -43,8 +43,7 @@ public class MonitoringClient {
                 /* Adicionando os pacientes dispositivos dos pacientes em uma 
                 lista.*/
                 for (int i = 0; i < jsonArray.length(); i++) {
-                    patientDevices.add(
-                            new PatientDevice(
+                    PatientDevice temp = new PatientDevice(
                                     jsonArray.getJSONObject(i).
                                             getString("name"),
                                     jsonArray.getJSONObject(i).
@@ -59,10 +58,14 @@ public class MonitoringClient {
                                             getInt("heartRateSensor"),
                                     jsonArray.getJSONObject(i).
                                             getString("deviceId")
-                            ));
+                            );
+                    
+                    if (temp.isIsSeriousCondition()) {
+                        patientDevices.add(0, temp);
+                    } else {
+                        patientDevices.add(temp);
+                    }
                 }
-
-                // ORDENAR A LISTA DE PACIENTES PELOS GRAVES
                 output.close();
 
                 return patientDevices;
