@@ -77,7 +77,7 @@ public class MonitoringController implements Initializable {
     @FXML
     private Label lblSeriousCondition;
 
-    private PatientDevice selected, temp00;
+    private PatientDevice patientClicked, patientSelected;
     private ObservableList<PatientDevice> patients = FXCollections.observableArrayList();
 
     @Override
@@ -87,10 +87,10 @@ public class MonitoringController implements Initializable {
         table.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
             @Override
             public void changed(ObservableValue observable, Object oldValue, Object clicked) {
-                selected = (PatientDevice) clicked;
+                patientClicked = (PatientDevice) clicked;
 
-                if (selected != null) {
-                    temp00 = selected;
+                if (patientClicked != null) {
+                    patientSelected = patientClicked;
                     setPatientDeviceValues();
                 }
 //                } else {
@@ -119,7 +119,7 @@ public class MonitoringController implements Initializable {
                     @Override
                     public void run() {
                         try {
-                            if (temp00 != null) {
+                            if (patientSelected != null) {
                                 Socket conn = new Socket("localhost", 12244);
 
                                 table.setItems(updateTable(conn));
@@ -187,10 +187,10 @@ public class MonitoringController implements Initializable {
                     AlertType.ERROR);
         }
         
-        if (temp00 != null) {
+        if (patientSelected != null) {
             for (PatientDevice patientDevice: temp) {
-                if (patientDevice.getDeviceId().equals(temp00.getDeviceId())) {
-                    temp00 = patientDevice;
+                if (patientDevice.getDeviceId().equals(patientSelected.getDeviceId())) {
+                    patientSelected = patientDevice;
 
                     break;
                 }
@@ -226,14 +226,14 @@ public class MonitoringController implements Initializable {
      * Mostra na tela as informações de um paciente.
      */
     public void setPatientDeviceValues() {
-        lblDeviceId.setText(temp00.getDeviceId());
-        lblName.setText(temp00.getName());
-        lblBodyTemperature.setText(String.valueOf(temp00.getBodyTemperature()));
-        lblRespiratoryFrequency.setText(String.valueOf(temp00.getRespiratoryFrequency()));
-        lblBloodOxygenation.setText(String.valueOf(temp00.getBloodOxygenation()));
-        lblBloodPressure.setText(String.valueOf(temp00.getBloodPressure()));
-        lblHeartRate.setText(String.valueOf(temp00.getHeartRate()));
-        lblSeriousCondition.setText(temp00.isIsSeriousCondition() ? "Sim" : "Não");
+        lblDeviceId.setText(patientSelected.getDeviceId());
+        lblName.setText(patientSelected.getName());
+        lblBodyTemperature.setText(String.valueOf(patientSelected.getBodyTemperature()));
+        lblRespiratoryFrequency.setText(String.valueOf(patientSelected.getRespiratoryFrequency()));
+        lblBloodOxygenation.setText(String.valueOf(patientSelected.getBloodOxygenation()));
+        lblBloodPressure.setText(String.valueOf(patientSelected.getBloodPressure()));
+        lblHeartRate.setText(String.valueOf(patientSelected.getHeartRate()));
+        lblSeriousCondition.setText(patientSelected.isIsSeriousCondition() ? "Sim" : "Não");
     }
 
     /**
