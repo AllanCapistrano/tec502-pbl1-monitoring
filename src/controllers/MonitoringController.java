@@ -6,6 +6,7 @@ import java.net.Socket;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -76,7 +77,7 @@ public class MonitoringController implements Initializable {
     @FXML
     private Label lblSeriousCondition;
 
-    private PatientDevice selected;
+    private PatientDevice selected, temp00;
     private ObservableList<PatientDevice> patients = FXCollections.observableArrayList();
 
     @Override
@@ -87,12 +88,14 @@ public class MonitoringController implements Initializable {
             @Override
             public void changed(ObservableValue observable, Object oldValue, Object clicked) {
                 selected = (PatientDevice) clicked;
-                
+
                 if (selected != null) {
+                    temp00 = selected;
                     setPatientDeviceValues();
-                } else {
-                    setPatientDeviceValues("");
                 }
+//                } else {
+//                    setPatientDeviceValues("");
+//                }
             }
         });
 
@@ -108,6 +111,45 @@ public class MonitoringController implements Initializable {
         imgSearch.setOnMouseClicked((MouseEvent e) -> {
             table.setItems(searchPatients());
         });
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Runnable updater = new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            if (temp00 != null) {
+                                Socket conn = new Socket("localhost", 12244);
+
+                                table.setItems(updateTable(conn));
+
+                                setPatientDeviceValues();
+                            }
+                        } catch (IOException ioe) {
+                            System.err.println("Erro ao requisitar a lista de "
+                                    + "dispositivos dos pacientes.");
+                            System.out.println(ioe);
+                        }
+                    }
+                };
+                
+                while (true) {
+                    try {
+                        Thread.sleep(5000);
+                    } catch (InterruptedException ie) {
+                        System.err.println("Não foi parar a Thread");
+                        System.out.println(ie);
+                    }
+                    
+                    Platform.runLater(updater); // Atualizar na thread main
+                }
+            }
+
+        });
+        
+        thread.setDaemon(true); //Finalizar a thread quando o programa parar
+        thread.start();
     }
 
     /**
@@ -144,6 +186,16 @@ public class MonitoringController implements Initializable {
             callAlert("Erro", "Erro ao tentar atualizar a tabela",
                     AlertType.ERROR);
         }
+        
+        if (temp00 != null) {
+            for (PatientDevice patientDevice: temp) {
+                if (patientDevice.getDeviceId().equals(temp00.getDeviceId())) {
+                    temp00 = patientDevice;
+
+                    break;
+                }
+            }
+        }
 
         return patients;
     }
@@ -174,19 +226,19 @@ public class MonitoringController implements Initializable {
      * Mostra na tela as informações de um paciente.
      */
     public void setPatientDeviceValues() {
-        lblDeviceId.setText(selected.getDeviceId());
-        lblName.setText(selected.getName());
-        lblBodyTemperature.setText(String.valueOf(selected.getBodyTemperature()));
-        lblRespiratoryFrequency.setText(String.valueOf(selected.getRespiratoryFrequency()));
-        lblBloodOxygenation.setText(String.valueOf(selected.getBloodOxygenation()));
-        lblBloodPressure.setText(String.valueOf(selected.getBloodPressure()));
-        lblHeartRate.setText(String.valueOf(selected.getHeartRate()));
-        lblSeriousCondition.setText(selected.isIsSeriousCondition() ? "Sim" : "Não");
+        lblDeviceId.setText(temp00.getDeviceId());
+        lblName.setText(temp00.getName());
+        lblBodyTemperature.setText(String.valueOf(temp00.getBodyTemperature()));
+        lblRespiratoryFrequency.setText(String.valueOf(temp00.getRespiratoryFrequency()));
+        lblBloodOxygenation.setText(String.valueOf(temp00.getBloodOxygenation()));
+        lblBloodPressure.setText(String.valueOf(temp00.getBloodPressure()));
+        lblHeartRate.setText(String.valueOf(temp00.getHeartRate()));
+        lblSeriousCondition.setText(temp00.isIsSeriousCondition() ? "Sim" : "Não");
     }
-    
+
     /**
      * Mostra na tela as informações de um paciente.
-     * 
+     *
      * @param text String - Texto que se deseja mostrar.
      */
     public void setPatientDeviceValues(String text) {
