@@ -78,7 +78,7 @@
                <children>
                   <TableView fx:id="table" prefHeight="400.0" prefWidth="850.0">
                     <columns>
-                      <TableColumn fx:id="clmId" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" resizable="false" style="-fx-font-size: 14; -fx-alignment: CENTER;" text="Id do Equipamento" />
+                      <TableColumn fx:id="clmId" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" resizable="false" style="-fx-font-size: 14; -fx-alignment: CENTER;" text="ID do Dispositivo" />
                       <TableColumn fx:id="clmName" maxWidth="500.0" minWidth="500.0" prefWidth="500.0" resizable="false" style="-fx-font-size: 14; -fx-alignment: CENTER;" text="Nome do Paciente" />
                         <TableColumn fx:id="clmSeriousCondition" maxWidth="148.0" minWidth="148.0" prefWidth="148.0" resizable="false" style="-fx-font-size: 14; -fx-alignment: CENTER;" text="Estado Grave?" />
                     </columns>
