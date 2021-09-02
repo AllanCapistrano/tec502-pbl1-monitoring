@@ -103,7 +103,7 @@ public class MonitoringController implements Initializable {
                         }
                     }
                 };
-                
+
                 while (true) {
                     try {
                         Thread.sleep(5000);
@@ -111,14 +111,14 @@ public class MonitoringController implements Initializable {
                         System.err.println("Não foi parar a Thread");
                         System.out.println(ie);
                     }
-                    
+
                     /* Atualizar as informações na Thread principal. */
                     Platform.runLater(updater);
                 }
             }
 
         });
-        
+
         /* Finalizar a thread de requisição quando fechar o programa. */
         thread.setDaemon(true);
         /* Iniciar a thread de requisições. */
@@ -144,10 +144,10 @@ public class MonitoringController implements Initializable {
             System.out.println(ioe);
         }
     }
-    
+
     /**
      * Atualiza os campos das tabelas.
-     * 
+     *
      * @param conn Socket - Conexão com o servidor.
      * @return ObservableList<Patient>
      */
@@ -160,9 +160,9 @@ public class MonitoringController implements Initializable {
             callAlert("Erro", "Erro ao tentar atualizar a tabela",
                     AlertType.ERROR);
         }
-        
+
         if (patientSelected != null) {
-            for (PatientDevice patientDevice: temp) {
+            for (PatientDevice patientDevice : temp) {
                 if (patientDevice.getDeviceId().equals(patientSelected.getDeviceId())) {
                     patientSelected = patientDevice;
 
