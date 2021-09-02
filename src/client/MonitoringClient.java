@@ -35,37 +35,38 @@ public class MonitoringClient {
             JSON. */
             JSONObject response = (JSONObject) input.readObject();
 
-            JSONArray jsonArray = response.getJSONArray("data");
+            if ((int) response.get("statusCode") == 200) {
+                JSONArray jsonArray = response.getJSONArray("data");
 
-            ArrayList<PatientDevice> patientDevices = new ArrayList<>();
+                ArrayList<PatientDevice> patientDevices = new ArrayList<>();
 
-            /* Adicionando os pacientes dispositivos dos pacientes em uma 
-            lista.*/
-            for (int i = 0; i < jsonArray.length(); i++) {
-                patientDevices.add(
-                        new PatientDevice(
-                                jsonArray.getJSONObject(i).
-                                        getString("name"),
-                                jsonArray.getJSONObject(i).
-                                        getFloat("bodyTemperatureSensor"),
-                                jsonArray.getJSONObject(i).
-                                        getInt("respiratoryFrequencySensor"),
-                                jsonArray.getJSONObject(i).
-                                        getFloat("bloodOxygenationSensor"),
-                                jsonArray.getJSONObject(i).
-                                        getInt("bloodPressureSensor"),
-                                jsonArray.getJSONObject(i).
-                                        getInt("heartRateSensor"),
-                                jsonArray.getJSONObject(i).
-                                        getString("deviceId")
-                        ));
+                /* Adicionando os pacientes dispositivos dos pacientes em uma 
+                lista.*/
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    patientDevices.add(
+                            new PatientDevice(
+                                    jsonArray.getJSONObject(i).
+                                            getString("name"),
+                                    jsonArray.getJSONObject(i).
+                                            getFloat("bodyTemperatureSensor"),
+                                    jsonArray.getJSONObject(i).
+                                            getInt("respiratoryFrequencySensor"),
+                                    jsonArray.getJSONObject(i).
+                                            getFloat("bloodOxygenationSensor"),
+                                    jsonArray.getJSONObject(i).
+                                            getInt("bloodPressureSensor"),
+                                    jsonArray.getJSONObject(i).
+                                            getInt("heartRateSensor"),
+                                    jsonArray.getJSONObject(i).
+                                            getString("deviceId")
+                            ));
+                }
+
+                // ORDENAR A LISTA DE PACIENTES PELOS GRAVES
+                output.close();
+
+                return patientDevices;
             }
-            
-            // ORDENAR A LISTA DE PACIENTES PELOS GRAVES
-
-            output.close();
-
-            return patientDevices;
         } catch (IOException ioe) {
             System.err.println("Erro ao tentar editar os dados dos sensores.");
             System.out.println(ioe);
