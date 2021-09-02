@@ -15,15 +15,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import models.PatientDevice;
 
 /**
@@ -31,15 +26,6 @@ import models.PatientDevice;
  * @author Allan Capistrano
  */
 public class MonitoringController implements Initializable {
-
-    @FXML
-    private TextField txtSearch;
-
-    @FXML
-    private Button btnSearch;
-
-    @FXML
-    private ImageView imgSearch;
 
     @FXML
     private TableView<PatientDevice> table;
@@ -93,23 +79,7 @@ public class MonitoringController implements Initializable {
                     patientSelected = patientClicked;
                     setPatientDeviceValues();
                 }
-//                } else {
-//                    setPatientDeviceValues("");
-//                }
             }
-        });
-
-        txtSearch.setOnKeyReleased((KeyEvent e) -> {
-            table.setItems(searchPatients());
-        });
-
-        btnSearch.setOnMouseClicked((MouseEvent e) -> {
-            table.setItems(searchPatients());
-
-        });
-
-        imgSearch.setOnMouseClicked((MouseEvent e) -> {
-            table.setItems(searchPatients());
         });
 
         Thread thread = new Thread(new Runnable() {
@@ -142,13 +112,16 @@ public class MonitoringController implements Initializable {
                         System.out.println(ie);
                     }
                     
-                    Platform.runLater(updater); // Atualizar na thread main
+                    /* Atualizar as informações na Thread principal. */
+                    Platform.runLater(updater);
                 }
             }
 
         });
         
-        thread.setDaemon(true); //Finalizar a thread quando o programa parar
+        /* Finalizar a thread de requisição quando fechar o programa. */
+        thread.setDaemon(true);
+        /* Iniciar a thread de requisições. */
         thread.start();
     }
 
@@ -171,10 +144,11 @@ public class MonitoringController implements Initializable {
             System.out.println(ioe);
         }
     }
-
+    
     /**
      * Atualiza os campos das tabelas.
-     *
+     * 
+     * @param conn Socket - Conexão com o servidor.
      * @return ObservableList<Patient>
      */
     public ObservableList<PatientDevice> updateTable(Socket conn) {
@@ -201,28 +175,6 @@ public class MonitoringController implements Initializable {
     }
 
     /**
-     * Busca os pacientes pelo nome.
-     *
-     * @return ObservableList<Patient>
-     */
-    private ObservableList<PatientDevice> searchPatients() {
-        ObservableList<PatientDevice> clientSearch
-                = FXCollections.observableArrayList();
-
-        for (int i = 0; i < patients.size(); i++) {
-            if (patients.get(i).getName().toLowerCase().contains(
-                    txtSearch.getText().toLowerCase())) {
-                clientSearch.add(patients.get(i));
-            } else if (patients.get(i).getDeviceId().startsWith(
-                    txtSearch.getText())) {
-                clientSearch.add(patients.get(i));
-            }
-        }
-
-        return clientSearch;
-    }
-
-    /**
      * Mostra na tela as informações de um paciente.
      */
     public void setPatientDeviceValues() {
@@ -234,22 +186,6 @@ public class MonitoringController implements Initializable {
         lblBloodPressure.setText(String.valueOf(patientSelected.getBloodPressure()));
         lblHeartRate.setText(String.valueOf(patientSelected.getHeartRate()));
         lblSeriousCondition.setText(patientSelected.isIsSeriousCondition() ? "Sim" : "Não");
-    }
-
-    /**
-     * Mostra na tela as informações de um paciente.
-     *
-     * @param text String - Texto que se deseja mostrar.
-     */
-    public void setPatientDeviceValues(String text) {
-        lblDeviceId.setText(text);
-        lblName.setText(text);
-        lblBodyTemperature.setText(text);
-        lblRespiratoryFrequency.setText(text);
-        lblBloodOxygenation.setText(text);
-        lblBloodPressure.setText(text);
-        lblHeartRate.setText(text);
-        lblSeriousCondition.setText(text);
     }
 
     /**
