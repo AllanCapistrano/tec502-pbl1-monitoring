@@ -74,9 +74,9 @@
                   </Button>
                </children>
             </HBox>
-            <HBox prefHeight="400.0" prefWidth="200.0">
+            <HBox prefHeight="250.0" prefWidth="200.0">
                <children>
-                  <TableView fx:id="table" prefHeight="400.0" prefWidth="850.0">
+                  <TableView fx:id="table" prefHeight="200.0" prefWidth="850.0">
                     <columns>
                       <TableColumn fx:id="clmId" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" resizable="false" style="-fx-font-size: 14; -fx-alignment: CENTER;" text="ID do Dispositivo" />
                       <TableColumn fx:id="clmName" maxWidth="500.0" minWidth="500.0" prefWidth="500.0" resizable="false" style="-fx-font-size: 14; -fx-alignment: CENTER;" text="Nome do Paciente" />
@@ -86,6 +86,220 @@
                         <Insets left="25.0" right="25.0" />
                      </HBox.margin>
                   </TableView>
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+               <children>
+                  <VBox prefHeight="100.0" prefWidth="450.0">
+                     <children>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Label text="ID do Dispositivo:">
+                                 <font>
+                                    <Font name="SansSerif Bold" size="16.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="lblDeviceId">
+                                 <font>
+                                    <Font name="SansSerif Regular" size="16.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
+                                 </HBox.margin>
+                              </Label>
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox prefHeight="40.0" prefWidth="200.0">
+                           <children>
+                              <Label alignment="CENTER" text="Temperatura Corporal:">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font name="SansSerif Bold" size="16.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets top="10.0" />
+                                 </padding>
+                              </Label>
+                              <Label fx:id="lblBodyTemperature">
+                                 <font>
+                                    <Font name="SansSerif Regular" size="16.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
+                                 </HBox.margin>
+                                 <padding>
+                                    <Insets top="10.0" />
+                                 </padding>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="40.0" prefWidth="200.0">
+                           <children>
+                              <Label alignment="CENTER" text="Nível de Oxigenação do Sangue">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font name="SansSerif Bold" size="16.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets top="10.0" />
+                                 </padding>
+                              </Label>
+                              <Label fx:id="lblBloodOxygenation">
+                                 <font>
+                                    <Font name="SansSerif Regular" size="16.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
+                                 </HBox.margin>
+                                 <padding>
+                                    <Insets top="10.0" />
+                                 </padding>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="40.0" prefWidth="200.0">
+                           <children>
+                              <Label alignment="CENTER" text="Frequência Cardíaca">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font name="SansSerif Bold" size="16.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets top="10.0" />
+                                 </padding>
+                              </Label>
+                              <Label fx:id="lblHeartRate">
+                                 <font>
+                                    <Font name="SansSerif Regular" size="16.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
+                                 </HBox.margin>
+                                 <padding>
+                                    <Insets top="10.0" />
+                                 </padding>
+                              </Label>
+                           </children>
+                        </HBox>
+                     </children>
+                     <HBox.margin>
+                        <Insets left="35.0" />
+                     </HBox.margin>
+                  </VBox>
+                  <VBox prefHeight="100.0" prefWidth="450.0">
+                     <children>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Label text="Nome:">
+                                 <font>
+                                    <Font name="SansSerif Bold" size="16.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="lblName">
+                                 <font>
+                                    <Font name="SansSerif Regular" size="16.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
+                                 </HBox.margin>
+                              </Label>
+                           </children>
+                           <VBox.margin>
+                              <Insets left="25.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox prefHeight="40.0" prefWidth="200.0">
+                           <children>
+                              <Label alignment="CENTER" text="Frequência Cardíaca:">
+                                 <HBox.margin>
+                                    <Insets left="25.0" />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font name="SansSerif Bold" size="16.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets top="10.0" />
+                                 </padding>
+                              </Label>
+                              <Label fx:id="lblRespiratoryFrequency">
+                                 <font>
+                                    <Font name="SansSerif Regular" size="16.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
+                                 </HBox.margin>
+                                 <padding>
+                                    <Insets top="10.0" />
+                                 </padding>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="40.0" prefWidth="200.0">
+                           <children>
+                              <Label alignment="CENTER" text="Pressão arterial Máxima">
+                                 <HBox.margin>
+                                    <Insets left="25.0" />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font name="SansSerif Bold" size="16.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets top="10.0" />
+                                 </padding>
+                              </Label>
+                              <Label fx:id="lblBloodPressure">
+                                 <font>
+                                    <Font name="SansSerif Regular" size="16.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
+                                 </HBox.margin>
+                                 <padding>
+                                    <Insets top="10.0" />
+                                 </padding>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="40.0" prefWidth="200.0">
+                           <children>
+                              <Label alignment="CENTER" text="Estado Grave?">
+                                 <HBox.margin>
+                                    <Insets left="25.0" />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font name="SansSerif Bold" size="16.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets top="10.0" />
+                                 </padding>
+                              </Label>
+                              <Label fx:id="lblSeriousCondition">
+                                 <font>
+                                    <Font name="SansSerif Regular" size="16.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
+                                 </HBox.margin>
+                                 <padding>
+                                    <Insets top="10.0" />
+                                 </padding>
+                              </Label>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
                </children>
             </HBox>
          </children>
