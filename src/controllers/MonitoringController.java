@@ -181,10 +181,10 @@ public class MonitoringController implements Initializable {
         lblDeviceId.setText(patientSelected.getDeviceId());
         lblName.setText(patientSelected.getName());
         lblBodyTemperature.setText(String.valueOf(patientSelected.getBodyTemperature()));
-        lblRespiratoryFrequency.setText(String.valueOf(patientSelected.getRespiratoryFrequency()));
+        lblRespiratoryFrequency.setText(String.valueOf((int) patientSelected.getRespiratoryFrequency()));
         lblBloodOxygenation.setText(String.valueOf(patientSelected.getBloodOxygenation()));
-        lblBloodPressure.setText(String.valueOf(patientSelected.getBloodPressure()));
-        lblHeartRate.setText(String.valueOf(patientSelected.getHeartRate()));
+        lblBloodPressure.setText(String.valueOf((int) patientSelected.getBloodPressure()));
+        lblHeartRate.setText(String.valueOf((int) patientSelected.getHeartRate()));
         lblSeriousCondition.setText(patientSelected.isIsSeriousCondition() ? "Sim" : "Não");
     }
 
