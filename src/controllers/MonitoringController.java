@@ -6,8 +6,6 @@ import java.net.Socket;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -17,6 +15,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -24,9 +23,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
 import models.PatientDevice;
-import tec502.pbl1.monitoring.Info;
 
 /**
  *
@@ -55,6 +52,30 @@ public class MonitoringController implements Initializable {
     @FXML
     private TableColumn<PatientDevice, String> clmSeriousCondition;
 
+    @FXML
+    private Label lblDeviceId;
+
+    @FXML
+    private Label lblBodyTemperature;
+
+    @FXML
+    private Label lblBloodOxygenation;
+
+    @FXML
+    private Label lblHeartRate;
+
+    @FXML
+    private Label lblName;
+
+    @FXML
+    private Label lblRespiratoryFrequency;
+
+    @FXML
+    private Label lblBloodPressure;
+
+    @FXML
+    private Label lblSeriousCondition;
+
     private PatientDevice selected;
     private ObservableList<PatientDevice> patients = FXCollections.observableArrayList();
 
@@ -66,17 +87,11 @@ public class MonitoringController implements Initializable {
             @Override
             public void changed(ObservableValue observable, Object oldValue, Object clicked) {
                 selected = (PatientDevice) clicked;
-
+                
                 if (selected != null) {
-                    Info newWindow = new Info(selected);
-
-                    try {
-                        newWindow.start(new Stage());
-                    } catch (Exception ex) {
-                        System.err.println("Erro ao tentar exibir as informações do paciente.");
-                    }
+                    setPatientDeviceValues();
                 } else {
-                    callAlert("Atenção", "É necessário selecionar um paciente!", AlertType.WARNING);
+                    setPatientDeviceValues("");
                 }
             }
         });
@@ -115,7 +130,6 @@ public class MonitoringController implements Initializable {
         }
     }
 
-    // NÃO SEI SE É NECESSÁRIO.
     /**
      * Atualiza os campos das tabelas.
      *
@@ -155,10 +169,40 @@ public class MonitoringController implements Initializable {
 
         return clientSearch;
     }
+
+    /**
+     * Mostra na tela as informações de um paciente.
+     */
+    public void setPatientDeviceValues() {
+        lblDeviceId.setText(selected.getDeviceId());
+        lblName.setText(selected.getName());
+        lblBodyTemperature.setText(String.valueOf(selected.getBodyTemperature()));
+        lblRespiratoryFrequency.setText(String.valueOf(selected.getRespiratoryFrequency()));
+        lblBloodOxygenation.setText(String.valueOf(selected.getBloodOxygenation()));
+        lblBloodPressure.setText(String.valueOf(selected.getBloodPressure()));
+        lblHeartRate.setText(String.valueOf(selected.getHeartRate()));
+        lblSeriousCondition.setText(selected.isIsSeriousCondition() ? "Sim" : "Não");
+    }
     
     /**
-     * Mostra uma mensagem de alerta na tela.
+     * Mostra na tela as informações de um paciente.
      * 
+     * @param text String - Texto que se deseja mostrar.
+     */
+    public void setPatientDeviceValues(String text) {
+        lblDeviceId.setText(text);
+        lblName.setText(text);
+        lblBodyTemperature.setText(text);
+        lblRespiratoryFrequency.setText(text);
+        lblBloodOxygenation.setText(text);
+        lblBloodPressure.setText(text);
+        lblHeartRate.setText(text);
+        lblSeriousCondition.setText(text);
+    }
+
+    /**
+     * Mostra uma mensagem de alerta na tela.
+     *
      * @param title String - Título do alerta.
      * @param text String - Mensagem que será exibida.
      * @param alertType AlertType - Tipo do alerta que será enviado.
