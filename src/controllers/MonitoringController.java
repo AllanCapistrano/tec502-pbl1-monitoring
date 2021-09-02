@@ -4,7 +4,10 @@ import client.MonitoringClient;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -12,6 +15,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -72,11 +76,7 @@ public class MonitoringController implements Initializable {
                         System.err.println("Erro ao tentar exibir as informações do paciente.");
                     }
                 } else {
-                    Alert alert = new Alert(Alert.AlertType.WARNING);
-
-                    alert.setTitle("Atenção");
-                    alert.setHeaderText("É necessário selecionar um paciente!");
-                    alert.show();
+                    callAlert("Atenção", "É necessário selecionar um paciente!", AlertType.WARNING);
                 }
             }
         });
@@ -104,7 +104,9 @@ public class MonitoringController implements Initializable {
 
             clmId.setCellValueFactory(new PropertyValueFactory("deviceId"));
             clmName.setCellValueFactory(new PropertyValueFactory("name"));
-            clmSeriousCondition.setCellValueFactory(new PropertyValueFactory("isSeriousCondition"));
+            clmSeriousCondition.setCellValueFactory(
+                    new PropertyValueFactory("isSeriousCondition")
+            );
 
             table.setItems(updateTable(conn));
         } catch (IOException ioe) {
@@ -120,7 +122,14 @@ public class MonitoringController implements Initializable {
      * @return ObservableList<Patient>
      */
     public ObservableList<PatientDevice> updateTable(Socket conn) {
-        patients = FXCollections.observableArrayList(MonitoringClient.requestPatients(conn));
+        ArrayList<PatientDevice> temp = MonitoringClient.requestPatients(conn);
+
+        if (temp != null) {
+            patients = FXCollections.observableArrayList(temp);
+        } else {
+            callAlert("Erro", "Erro ao tentar atualizar a tabela",
+                    AlertType.ERROR);
+        }
 
         return patients;
     }
@@ -131,16 +140,33 @@ public class MonitoringController implements Initializable {
      * @return ObservableList<Patient>
      */
     private ObservableList<PatientDevice> searchPatients() {
-        ObservableList<PatientDevice> clientSearch = FXCollections.observableArrayList();
+        ObservableList<PatientDevice> clientSearch
+                = FXCollections.observableArrayList();
 
         for (int i = 0; i < patients.size(); i++) {
-            if (patients.get(i).getName().toLowerCase().contains(txtSearch.getText().toLowerCase())) {
+            if (patients.get(i).getName().toLowerCase().contains(
+                    txtSearch.getText().toLowerCase())) {
                 clientSearch.add(patients.get(i));
-            } else if (patients.get(i).getDeviceId().startsWith(txtSearch.getText())) {
+            } else if (patients.get(i).getDeviceId().startsWith(
+                    txtSearch.getText())) {
                 clientSearch.add(patients.get(i));
             }
         }
 
         return clientSearch;
+    }
+    
+    /**
+     * Mostra uma mensagem de alerta na tela.
+     * 
+     * @param title String - Título do alerta.
+     * @param text String - Mensagem que será exibida.
+     * @param alertType AlertType - Tipo do alerta que será enviado.
+     */
+    public void callAlert(String title, String text, AlertType alertType) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(text);
+        alert.show();
     }
 }
