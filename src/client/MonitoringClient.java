@@ -5,9 +5,11 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Collections;
 import models.PatientDevice;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import utils.ComparePatients;
 
 /**
  *
@@ -44,29 +46,26 @@ public class MonitoringClient {
                 lista.*/
                 for (int i = 0; i < jsonArray.length(); i++) {
                     PatientDevice temp = new PatientDevice(
-                                    jsonArray.getJSONObject(i).
-                                            getString("name"),
-                                    jsonArray.getJSONObject(i).
-                                            getFloat("bodyTemperatureSensor"),
-                                    jsonArray.getJSONObject(i).
-                                            getInt("respiratoryFrequencySensor"),
-                                    jsonArray.getJSONObject(i).
-                                            getFloat("bloodOxygenationSensor"),
-                                    jsonArray.getJSONObject(i).
-                                            getInt("bloodPressureSensor"),
-                                    jsonArray.getJSONObject(i).
-                                            getInt("heartRateSensor"),
-                                    jsonArray.getJSONObject(i).
-                                            getString("deviceId")
-                            );
-                    
-                    if (temp.isIsSeriousCondition()) {
-                        patientDevices.add(0, temp);
-                    } else {
-                        patientDevices.add(temp);
-                    }
+                            jsonArray.getJSONObject(i).
+                                    getString("name"),
+                            jsonArray.getJSONObject(i).
+                                    getFloat("bodyTemperatureSensor"),
+                            jsonArray.getJSONObject(i).
+                                    getInt("respiratoryFrequencySensor"),
+                            jsonArray.getJSONObject(i).
+                                    getFloat("bloodOxygenationSensor"),
+                            jsonArray.getJSONObject(i).
+                                    getInt("bloodPressureSensor"),
+                            jsonArray.getJSONObject(i).
+                                    getInt("heartRateSensor"),
+                            jsonArray.getJSONObject(i).
+                                    getString("deviceId")
+                    );
+                    patientDevices.add(temp);
                 }
                 output.close();
+
+                Collections.sort(patientDevices, new ComparePatients());
 
                 return patientDevices;
             }

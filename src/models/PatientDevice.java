@@ -17,6 +17,7 @@ public class PatientDevice implements Serializable {
     private int bloodPressure;
     private int heartRate;
     private boolean isSeriousCondition;
+    private float patientSeverityLevel;
 
     /**
      * Método construtor.
@@ -50,20 +51,7 @@ public class PatientDevice implements Serializable {
         this.deviceId = deviceId;
 
         this.isSeriousCondition = this.checkPatientCondition();
-    }
-
-    /**
-     * Método construtor.
-     *
-     * @param name String - Nome do paciente.
-     * @param deviceId String - Número da ficha médica do paciente.
-     */
-    public PatientDevice(
-            String name,
-            String deviceId
-    ) {
-        this.name = name;
-        this.deviceId = deviceId;
+        this.patientSeverityLevel = this.calculatePatientSeverityLevel();
     }
 
     public String getName() {
@@ -121,15 +109,19 @@ public class PatientDevice implements Serializable {
     public boolean isIsSeriousCondition() {
         return isSeriousCondition;
     }
-    
+
     public void setIsSeriousCondition(boolean isSeriousCondition) {
         this.isSeriousCondition = isSeriousCondition;
     }
     
+    public float getPatientSeverityLevel() {
+        return patientSeverityLevel;
+    }
+
     /**
      * Verifica se o paciente está em um estado grave com base nos dados dos
      * sensores.
-     * 
+     *
      * @return boolean
      */
     public boolean checkPatientCondition() {
@@ -138,5 +130,28 @@ public class PatientDevice implements Serializable {
                 || (this.bloodOxygenation < (float) 96)
                 || (this.bloodPressure <= 100)
                 || (this.heartRate >= 111);
+    }
+
+    /**
+     * Média ponderada para determinar o nível de gravidade dos pacientes que
+     * estão em um estado crítica.
+     *
+     * @return float
+     */
+    public float calculatePatientSeverityLevel() {
+        if (this.isSeriousCondition) {
+            /**
+             * bodyTemperature -> peso 2 | respiratoryFrequency -> peso 2
+             * bloodOxygenation -> peso 4 | bloodPressure peso -> 1 | heartRate
+             * -> peso 1
+             */
+            return (this.bodyTemperature * 2
+                    + this.respiratoryFrequency * 2
+                    + (100 - this.bloodOxygenation)
+                    + (150 - this.bloodPressure)
+                    + this.heartRate) / (2 + 2 + 4 + 1 + 1);
+        }
+
+        return 0;
     }
 }
