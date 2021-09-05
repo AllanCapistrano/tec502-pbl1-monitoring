@@ -22,6 +22,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import models.PatientDevice;
 
 /**
+ * Controller de monitoramento.
  *
  * @author Allan Capistrano
  */
@@ -64,12 +65,19 @@ public class MonitoringController implements Initializable {
     private Label lblSeriousCondition;
 
     private PatientDevice patientClicked, patientSelected;
-    private ObservableList<PatientDevice> patients = FXCollections.observableArrayList();
+    private ObservableList<PatientDevice> patients
+            = FXCollections.observableArrayList();
+
+    private final String IP_ADDRESS = "localhost";
+    private final int PORT = 12244;
+    private final int SLEEP = 8000;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        /* Preenche a tabela. */
         initTable();
 
+        /* Quando clicar em um paciente na tabela. */
         table.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
             @Override
             public void changed(ObservableValue observable, Object oldValue, Object clicked) {
@@ -82,6 +90,8 @@ public class MonitoringController implements Initializable {
             }
         });
 
+        /* Thread responsável por requisitar ao servidor a lista com os 
+        dispositivos dos pacientes. */
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -90,12 +100,17 @@ public class MonitoringController implements Initializable {
                     public void run() {
                         try {
                             if (patientSelected != null) {
-                                Socket conn = new Socket("localhost", 12244);
+                                /* Estabelece a conexão. */
+                                Socket conn = new Socket(IP_ADDRESS, PORT);
 
+                                /* Atualiza a tabela. */
                                 table.setItems(updateTable(conn));
 
+                                /* Atualiza as informações do paciente 
+                                selecionado */
                                 setPatientDeviceValues();
-                                
+
+                                /* Finaliza a conexão. */
                                 conn.close();
                             }
                         } catch (IOException ioe) {
@@ -108,17 +123,15 @@ public class MonitoringController implements Initializable {
 
                 while (true) {
                     try {
-                        Thread.sleep(8000);
+                        Thread.sleep(SLEEP);
                     } catch (InterruptedException ie) {
                         System.err.println("Não foi possível parar a Thread");
                         System.out.println(ie);
                     }
-
                     /* Atualizar as informações na Thread principal. */
                     Platform.runLater(updater);
                 }
             }
-
         });
 
         /* Finalizar a thread de requisição quando fechar o programa. */
@@ -132,7 +145,7 @@ public class MonitoringController implements Initializable {
      */
     public void initTable() {
         try {
-            Socket conn = new Socket("localhost", 12244);
+            Socket conn = new Socket(IP_ADDRESS, PORT);
 
             clmId.setCellValueFactory(new PropertyValueFactory("deviceId"));
             clmName.setCellValueFactory(new PropertyValueFactory("name"));

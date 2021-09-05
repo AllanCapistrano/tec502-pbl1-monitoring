@@ -12,11 +12,18 @@ import org.json.JSONObject;
 import utils.ComparePatients;
 
 /**
+ * Client de monitoramento.
  *
  * @author Allan Capistrano
  */
 public class MonitoringClient {
 
+    /**
+     * Requisita para o servidor a lista completa dos pacientes.
+     *
+     * @param conn Socket - Conexão com o servidor.
+     * @return ArrayList<PatientDevice> - Lista dos dispositivos dos pacientes.
+     */
     public static ArrayList<PatientDevice> requestPatients(Socket conn) {
         JSONObject json = new JSONObject();
 
@@ -37,13 +44,13 @@ public class MonitoringClient {
             JSON. */
             JSONObject response = (JSONObject) input.readObject();
 
+            /* Somente se o status da resposta for OK (200). */
             if ((int) response.get("statusCode") == 200) {
                 JSONArray jsonArray = response.getJSONArray("data");
 
                 ArrayList<PatientDevice> patientDevices = new ArrayList<>();
 
-                /* Adicionando os pacientes dispositivos dos pacientes em uma 
-                lista.*/
+                /* Adicionando os dispositivos dos pacientes em uma lista.*/
                 for (int i = 0; i < jsonArray.length(); i++) {
                     PatientDevice temp = new PatientDevice(
                             jsonArray.getJSONObject(i).
