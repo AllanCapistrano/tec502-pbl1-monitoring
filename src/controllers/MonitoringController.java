@@ -180,12 +180,31 @@ public class MonitoringController implements Initializable {
     public void setPatientDeviceValues() {
         lblDeviceId.setText(patientSelected.getDeviceId());
         lblName.setText(patientSelected.getName());
-        lblBodyTemperature.setText(String.valueOf(patientSelected.getBodyTemperature()));
-        lblRespiratoryFrequency.setText(String.valueOf((int) patientSelected.getRespiratoryFrequency()));
-        lblBloodOxygenation.setText(String.valueOf(patientSelected.getBloodOxygenation()));
-        lblBloodPressure.setText(String.valueOf((int) patientSelected.getBloodPressure()));
-        lblHeartRate.setText(String.valueOf((int) patientSelected.getHeartRate()));
-        lblSeriousCondition.setText(patientSelected.isIsSeriousCondition() ? "Sim" : "Não");
+        lblBodyTemperature.setText(
+                String.valueOf(patientSelected.getBodyTemperature())
+        );
+        lblRespiratoryFrequency.setText(
+                String.valueOf((int) patientSelected.getRespiratoryFrequency())
+        );
+        lblBloodOxygenation.setText(
+                String.valueOf(patientSelected.getBloodOxygenation())
+        );
+        lblBloodPressure.setText(
+                String.valueOf((int) patientSelected.getBloodPressure())
+        );
+        lblHeartRate.setText(
+                String.valueOf((int) patientSelected.getHeartRate())
+        );
+        lblSeriousCondition.setText(
+                patientSelected.isIsSeriousCondition()
+                ? "Sim ("
+                + String.format(
+                        "%.1f",
+                        patientSelected.calculatePatientSeverityLevel()
+                ).replace(",", ".")
+                + ")"
+                : "Não"
+        );
     }
 
     /**
