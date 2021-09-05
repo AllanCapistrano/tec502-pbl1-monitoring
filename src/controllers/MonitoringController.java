@@ -95,6 +95,8 @@ public class MonitoringController implements Initializable {
                                 table.setItems(updateTable(conn));
 
                                 setPatientDeviceValues();
+                                
+                                conn.close();
                             }
                         } catch (IOException ioe) {
                             System.err.println("Erro ao requisitar a lista de "
@@ -106,9 +108,9 @@ public class MonitoringController implements Initializable {
 
                 while (true) {
                     try {
-                        Thread.sleep(5000);
+                        Thread.sleep(8000);
                     } catch (InterruptedException ie) {
-                        System.err.println("Não foi parar a Thread");
+                        System.err.println("Não foi possível parar a Thread");
                         System.out.println(ie);
                     }
 
