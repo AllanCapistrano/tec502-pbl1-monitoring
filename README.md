@@ -1,7 +1,7 @@
 # tec502-pbl1-monitoring
 
 <p align="center">
-  <img src="https://i.imgur.com/h9UWhf1.png" alt="Monitoring" width="650px" height="450px">
+  <img src="https://i.imgur.com/2PyXKSZ.png" alt="Monitoring" width="650px" height="450px">
 </p>
 
 ## 📖 Descrição do Projeto ##
