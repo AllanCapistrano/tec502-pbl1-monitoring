@@ -113,7 +113,7 @@
                         </HBox>
                         <HBox prefHeight="40.0" prefWidth="200.0">
                            <children>
-                              <Label alignment="CENTER" text="Nível de Oxigenação do Sangue">
+                              <Label alignment="CENTER" text="Nível de Oxigenação do Sangue:">
                                  <HBox.margin>
                                     <Insets />
                                  </HBox.margin>
@@ -139,7 +139,7 @@
                         </HBox>
                         <HBox prefHeight="40.0" prefWidth="200.0">
                            <children>
-                              <Label alignment="CENTER" text="Frequência Cardíaca">
+                              <Label alignment="CENTER" text="Frequência Cardíaca:">
                                  <HBox.margin>
                                     <Insets />
                                  </HBox.margin>
@@ -192,7 +192,7 @@
                         </HBox>
                         <HBox prefHeight="40.0" prefWidth="200.0">
                            <children>
-                              <Label alignment="CENTER" text="Frequência Cardíaca:">
+                              <Label alignment="CENTER" text="Frequência Respiratória:">
                                  <HBox.margin>
                                     <Insets left="25.0" />
                                  </HBox.margin>
@@ -218,7 +218,7 @@
                         </HBox>
                         <HBox prefHeight="40.0" prefWidth="200.0">
                            <children>
-                              <Label alignment="CENTER" text="Pressão arterial Máxima">
+                              <Label alignment="CENTER" text="Pressão Arterial Máxima:">
                                  <HBox.margin>
                                     <Insets left="25.0" />
                                  </HBox.margin>
