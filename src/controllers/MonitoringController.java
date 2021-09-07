@@ -130,8 +130,6 @@ public class MonitoringController implements Initializable {
                                     initTable(conn);
                                 }
 
-                                System.out.println(init); //AQUI
-
                                 /* Finaliza a conexão. */
                                 conn.close();
                             }
