@@ -64,18 +64,29 @@ public class MonitoringController implements Initializable {
     @FXML
     private Label lblSeriousCondition;
 
-    private PatientDevice patientClicked, patientSelected;
-    private ObservableList<PatientDevice> patients
-            = FXCollections.observableArrayList();
-
     private final String IP_ADDRESS = "localhost";
     private final int PORT = 12244;
     private final int SLEEP = 8000;
 
+    private PatientDevice patientClicked, patientSelected;
+    private ObservableList<PatientDevice> patients
+            = FXCollections.observableArrayList();
+
+    private boolean init = true;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        /* Preenche a tabela. */
-        initTable();
+        try {
+            Socket conn = new Socket(IP_ADDRESS, PORT);
+
+            /* Preenche a tabela. */
+            initTable(conn);
+
+            conn.close();
+        } catch (IOException ioe) {
+            System.err.println("Erro ao tentar se conectar com o servidor.");
+            System.out.println(ioe);
+        }
 
         /* Quando clicar em um paciente na tabela. */
         table.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
@@ -85,7 +96,11 @@ public class MonitoringController implements Initializable {
 
                 if (patientClicked != null) {
                     patientSelected = patientClicked;
+
+                    /* Mostra as informações do paciente selecionado */
                     setPatientDeviceValues();
+
+                    init = false;
                 }
             }
         });
@@ -99,16 +114,23 @@ public class MonitoringController implements Initializable {
                     @Override
                     public void run() {
                         try {
-                            if (patientSelected != null) {
+                            if (patientSelected != null || init) {
                                 /* Estabelece a conexão. */
                                 Socket conn = new Socket(IP_ADDRESS, PORT);
 
                                 /* Atualiza a tabela. */
                                 table.setItems(updateTable(conn));
 
-                                /* Atualiza as informações do paciente 
-                                selecionado */
-                                setPatientDeviceValues();
+                                if (!init) {
+                                    /* Atualiza as informações do paciente 
+                                    selecionado */
+                                    setPatientDeviceValues();
+                                } else { /* Caso não tenha conectado da primeira 
+                                        vez, tenta iniciar a tabela novamente.*/
+                                    initTable(conn);
+                                }
+
+                                System.out.println(init); //AQUI
 
                                 /* Finaliza a conexão. */
                                 conn.close();
@@ -143,21 +165,14 @@ public class MonitoringController implements Initializable {
     /**
      * Preenche as tabelas com as informações recebidas.
      */
-    public void initTable() {
-        try {
-            Socket conn = new Socket(IP_ADDRESS, PORT);
+    public void initTable(Socket conn) {
+        clmId.setCellValueFactory(new PropertyValueFactory("deviceId"));
+        clmName.setCellValueFactory(new PropertyValueFactory("name"));
+        clmSeriousCondition.setCellValueFactory(
+                new PropertyValueFactory("isSeriousCondition")
+        );
 
-            clmId.setCellValueFactory(new PropertyValueFactory("deviceId"));
-            clmName.setCellValueFactory(new PropertyValueFactory("name"));
-            clmSeriousCondition.setCellValueFactory(
-                    new PropertyValueFactory("isSeriousCondition")
-            );
-
-            table.setItems(updateTable(conn));
-        } catch (IOException ioe) {
-            System.err.println("Erro de Entrada/Saída");
-            System.out.println(ioe);
-        }
+        table.setItems(updateTable(conn));
     }
 
     /**
@@ -171,7 +186,7 @@ public class MonitoringController implements Initializable {
 
         if (temp != null) {
             patients = FXCollections.observableArrayList(temp);
-        } else {
+        } else if (temp == null && !init) { //AQUI
             callAlert("Erro", "Erro ao tentar atualizar a tabela",
                     AlertType.ERROR);
         }
