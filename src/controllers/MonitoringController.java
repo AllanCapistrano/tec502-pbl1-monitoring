@@ -118,14 +118,14 @@ public class MonitoringController implements Initializable {
                                 /* Estabelece a conexão. */
                                 Socket conn = new Socket(IP_ADDRESS, PORT);
 
-                                /* Atualiza a tabela. */
-                                table.setItems(updateTable(conn));
-
                                 if (!init) {
+                                    /* Atualiza a tabela. */
+                                    table.setItems(updateTable(conn));
                                     /* Atualiza as informações do paciente 
                                     selecionado */
                                     setPatientDeviceValues();
-                                } else { /* Caso não tenha conectado da primeira 
+                                } else {
+                                    /* Caso não tenha conectado da primeira 
                                         vez, tenta iniciar a tabela novamente.*/
                                     initTable(conn);
                                 }
@@ -162,6 +162,8 @@ public class MonitoringController implements Initializable {
 
     /**
      * Preenche as tabelas com as informações recebidas.
+     *
+     * @param conn Socket - Conexão com o servidor.
      */
     public void initTable(Socket conn) {
         clmId.setCellValueFactory(new PropertyValueFactory("deviceId"));
