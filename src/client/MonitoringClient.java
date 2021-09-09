@@ -77,7 +77,7 @@ public class MonitoringClient {
                 return patientDevices;
             }
         } catch (IOException ioe) {
-            System.err.println("Erro ao tentar editar os dados dos sensores.");
+            System.err.println("Erro ao pedir as informações dos pacientes.");
             System.out.println(ioe);
         } catch (ClassNotFoundException cnfe) {
             System.err.println("Classe JSONObject não foi econtrada.");
