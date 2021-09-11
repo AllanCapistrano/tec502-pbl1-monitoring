@@ -169,7 +169,7 @@ public class MonitoringController implements Initializable {
         clmId.setCellValueFactory(new PropertyValueFactory("deviceId"));
         clmName.setCellValueFactory(new PropertyValueFactory("name"));
         clmSeriousCondition.setCellValueFactory(
-                new PropertyValueFactory("isSeriousCondition")
+                new PropertyValueFactory("isSeriousConditionLabel")
         );
 
         table.setItems(updateTable(conn));
