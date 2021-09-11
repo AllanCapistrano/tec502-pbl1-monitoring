@@ -186,19 +186,19 @@ public class MonitoringController implements Initializable {
 
         if (temp != null) {
             patients = FXCollections.observableArrayList(temp);
-        } else if (temp == null && !init) { //AQUI
-            callAlert("Erro", "Erro ao tentar atualizar a tabela",
-                    AlertType.ERROR);
-        }
 
-        if (patientSelected != null) {
-            for (PatientDevice patientDevice : temp) {
-                if (patientDevice.getDeviceId().equals(patientSelected.getDeviceId())) {
-                    patientSelected = patientDevice;
+            if (patientSelected != null) {
+                for (PatientDevice patientDevice : temp) {
+                    if (patientDevice.getDeviceId().equals(patientSelected.getDeviceId())) {
+                        patientSelected = patientDevice;
 
-                    break;
+                        break;
+                    }
                 }
             }
+        } else if (temp == null && !init) {
+            callAlert("Erro", "Erro ao tentar atualizar a tabela",
+                    AlertType.ERROR);
         }
 
         return patients;
