@@ -9,17 +9,24 @@
 O projeto trata-se de um dos *clients* que se conecta ao [servidor](https://github.com/AllanCapistrano/tec502-pbl1-server) principal, e tem como função exibir os dados, que são medidos pelos sensores e processados no servidor, para os médicos poderem acompanhar a situação em tempo real dos pacientes que estão utilizando o dispositivo de monitoramento de COVID-19.<br/>
 Este *client* se comunica com o servidor utilizando um protocolo baseado em [API REST](https://www.redhat.com/pt-br/topics/api/what-is-a-rest-api), com requisições [HTTP](https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Methods) e mensagens no formato [JSON](https://www.json.org/json-en.html). Essas requisições são feitas para o servidor a cada 5 segundos por uma *thread*, garantindo dessa forma, um acompanhamento em tempo real dos dados por um profissional da saúde.
 
-**⛵ Navegação pelos projetos:**
+### ⛵ Navegação pelos projetos: ###
 - [Servidor](https://github.com/AllanCapistrano/tec502-pbl1-server)
 - [Emulador de Sensores](https://github.com/AllanCapistrano/tec502-pbl1-sensors)
 - \> Monitoramento de Pacientes
 
-**📂 Tecnologias utilizadas:**
+### 📂 Tecnologias utilizadas: ### 
 - [Java JDK 8](https://www.oracle.com/br/java/technologies/javase/javase-jdk8-downloads.html)
 - [Scene Builder](https://gluonhq.com/products/scene-builder/)
 
-**📦 Dependências:**
+### 📦 Dependências: ### 
 - [JSON](https://www.json.org/json-en.html)
+
+------------
+
+## 💻 Como utilizar ##
+1. Caso esteja utilizando o sistema operacional **Windows**, [clique aqui](https://github.com/AllanCapistrano/tec502-pbl1-monitoring/releases/tag/v1.0) e faça o download do arquivo `.exe` ou `.jar`;
+2. Porém, caso esteja utilizando o sistema operacional **macOS** ou alguma distribuição **Linux**, [clique aqui](https://github.com/AllanCapistrano/tec502-pbl1-monitoring/releases/tag/v1.0) e faça o download do arquivo `.jar`;
+3. Após isso, com o [servidor](https://github.com/AllanCapistrano/tec502-pbl1-server) *online*, basta instalar o arquivo `.exe` ou executar o arquivo `.jar`.
 
 ------------
 
