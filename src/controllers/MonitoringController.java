@@ -19,6 +19,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import models.PatientDevice;
 
 /**
@@ -63,6 +65,9 @@ public class MonitoringController implements Initializable {
 
     @FXML
     private Label lblSeriousCondition;
+    
+    @FXML
+    private ImageView imgCloud;
 
     private final String IP_ADDRESS = "localhost";
     private final int PORT = 12244;
@@ -81,11 +86,17 @@ public class MonitoringController implements Initializable {
 
             /* Preenche a tabela. */
             initTable(conn);
+            
+            /* Indica que está conectado com o servidor. */
+            imgCloud.setImage(new Image("/images/cloud-check.png"));
 
             conn.close();
         } catch (IOException ioe) {
             System.err.println("Erro ao tentar se conectar com o servidor.");
             System.out.println(ioe);
+            
+            /* Indica que não está conectado com o servidor. */
+            imgCloud.setImage(new Image("/images/cloud-slash.png"));
         }
 
         /* Quando clicar em um paciente na tabela. */
@@ -129,6 +140,9 @@ public class MonitoringController implements Initializable {
                                         vez, tenta iniciar a tabela novamente.*/
                                     initTable(conn);
                                 }
+                                
+                                /* Indica que está conectado com o servidor. */
+                                imgCloud.setImage(new Image("/images/cloud-check.png"));
 
                                 /* Finaliza a conexão. */
                                 conn.close();
@@ -137,6 +151,9 @@ public class MonitoringController implements Initializable {
                             System.err.println("Erro ao requisitar a lista de "
                                     + "dispositivos dos pacientes.");
                             System.out.println(ioe);
+                            
+                            /* Indica que não está conectado com o servidor. */
+                            imgCloud.setImage(new Image("/images/cloud-slash.png"));
                         }
                     }
                 };
