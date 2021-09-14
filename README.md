@@ -24,8 +24,8 @@ Este *client* se comunica com o servidor utilizando um protocolo baseado em [API
 ------------
 
 ## 💻 Como utilizar ##
-1. Caso esteja utilizando o sistema operacional **Windows**, [clique aqui](https://github.com/AllanCapistrano/tec502-pbl1-monitoring/releases/tag/v1.0) e faça o download do arquivo `.exe` ou `.jar`;
-2. Porém, caso esteja utilizando o sistema operacional **macOS** ou alguma distribuição **Linux**, [clique aqui](https://github.com/AllanCapistrano/tec502-pbl1-monitoring/releases/tag/v1.0) e faça o download do arquivo `.jar`;
+1. Caso esteja utilizando o sistema operacional **Windows**, [clique aqui](https://github.com/AllanCapistrano/tec502-pbl1-monitoring/releases/tag/v1.1) e faça o download do arquivo `.exe` ou `.jar`;
+2. Porém, caso esteja utilizando o sistema operacional **macOS** ou alguma distribuição **Linux**, [clique aqui](https://github.com/AllanCapistrano/tec502-pbl1-monitoring/releases/tag/v1.1) e faça o download do arquivo `.jar`;
 3. Após isso, com o [servidor](https://github.com/AllanCapistrano/tec502-pbl1-server) *online*, basta instalar o arquivo `.exe` ou executar o arquivo `.jar`.
 
 ------------
