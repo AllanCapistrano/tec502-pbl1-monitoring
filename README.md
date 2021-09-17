@@ -13,6 +13,7 @@ Este *client* se comunica com o servidor utilizando um protocolo baseado em [API
 - [Servidor](https://github.com/AllanCapistrano/tec502-pbl1-server)
 - [Emulador de Sensores](https://github.com/AllanCapistrano/tec502-pbl1-sensors)
 - \> Monitoramento de Pacientes
+- [API REST](https://github.com/AllanCapistrano/tec502-pbl1-api)
 
 ### 📂 Tecnologias utilizadas: ### 
 - [Java JDK 8](https://www.oracle.com/br/java/technologies/javase/javase-jdk8-downloads.html)
@@ -26,7 +27,7 @@ Este *client* se comunica com o servidor utilizando um protocolo baseado em [API
 ## 💻 Como utilizar ##
 1. Caso esteja utilizando o sistema operacional **Windows**, [clique aqui](https://github.com/AllanCapistrano/tec502-pbl1-monitoring/releases/tag/v1.1) e faça o download do arquivo `.exe` ou `.jar`;
 2. Porém, caso esteja utilizando o sistema operacional **macOS** ou alguma distribuição **Linux**, [clique aqui](https://github.com/AllanCapistrano/tec502-pbl1-monitoring/releases/tag/v1.1) e faça o download do arquivo `.jar`;
-3. Após isso, com o [servidor](https://github.com/AllanCapistrano/tec502-pbl1-server) *online*, basta instalar o arquivo `.exe` ou executar o arquivo `.jar`.
+3. Após isso, com o [servidor](https://github.com/AllanCapistrano/tec502-pbl1-server) *online*, basta instalar o programa através do arquivo `.exe` ou executar o arquivo `.jar`.
 
 ------------
 
