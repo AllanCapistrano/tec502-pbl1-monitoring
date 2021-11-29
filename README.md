@@ -5,7 +5,7 @@
 </p>
 
 ## 📖 Descrição do Projeto ##
-> **Resolução do problema 1 do MI - Concorrência e Conectividade (TEC 502).**<br/><br/>
+> **Resolução do problema 1 do MI - Concorrência e Conectividade (TEC 502) - [Universidade Estadual de Feira de Santana (UEFS)](https://www.uefs.br/).**<br/><br/>
 O projeto trata-se de um dos *clients* que se conecta ao [servidor](https://github.com/AllanCapistrano/tec502-pbl1-server) principal, e tem como função exibir os dados, que são medidos pelos sensores e processados no servidor, para os médicos poderem acompanhar a situação em tempo real dos pacientes que estão utilizando o dispositivo de monitoramento de COVID-19.<br/>
 Este *client* se comunica com o servidor utilizando um protocolo baseado em [API REST](https://www.redhat.com/pt-br/topics/api/what-is-a-rest-api), com requisições [HTTP](https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Methods) e mensagens no formato [JSON](https://www.json.org/json-en.html). Essas requisições são feitas para o servidor a cada 5 segundos por uma *thread*, garantindo dessa forma, um acompanhamento em tempo real dos dados por um profissional da saúde.
 
